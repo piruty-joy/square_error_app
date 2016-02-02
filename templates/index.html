@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Square Error App</title>
+</head>
+<body>
+<form action="/show" method="POST">
+    <input type="radio" name="function" value="sin" checked>sin
+    <input type="radio" name="function" value="cos">cos
+    <input type="range" name="num" min="10" max="100" step="1" value="20" onchange="changeValue(this.value)">
+    <span id="val">20</span>
+    <input type="submit" value="send">
+</form>
+
+<h1 id="hello">こんにちは</h1>
+<input type="text" id="input-text" placeholder="Please input text">
+<button id="button">Change text</button>
+
+<hr />
+{% if num %}
+    <h1>{{ num }}</h1>
+{% else %}
+    <h1>Hello</h1>
+{% endif %}
+</body>
+<script type="text/javascript" src="{{url_for('static', filename='jquery.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='app.js')}}"></script>
+</html>

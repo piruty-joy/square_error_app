@@ -8,16 +8,18 @@ from pandas import Series, DataFrame
 from numpy.random import normal
 
 
-N = 10  # サンプルのデータ数
-M = [0, 1, 3, 9]  # 多項式の次数
+# N = 10  # サンプルのデータ数
+# M = [0, 1, 3, 9]  # 多項式の次数
+# function = np.sin
 
 
 # データセットの準備
-def create_dataset(num):
+def create_dataset(num, function):
 	dataset = DataFrame(columns=['x', 'y'])
 	for i in range(num):
 		x = float(i) / float(num - 1)
-		y = np.cos(2 * np.pi * x) + normal(scale=0.3)
+		# y = np.cos(2 * np.pi * x) + normal(scale=0.3)
+		y = function(2 * np.pi * x) + normal(scale=0.3)
 		dataset = dataset.append(Series([x, y], index=['x', 'y']), ignore_index=True)
 	return dataset
 
@@ -51,12 +53,14 @@ def resolve(dataset, m):
 	return f, ws
 
 
-def make_picture():
-	train_set = create_dataset(N)
+def make_picture(num=10, coefficient=None, function=np.sin):
+	if coefficient is None:
+		coefficient = [0, 1, 3, 9]
+	train_set = create_dataset(num, function)
 	df_ws = DataFrame()
 
 	fig = plt.figure()
-	for c, m in enumerate(M):
+	for c, m in enumerate(coefficient):
 		f, ws = resolve(train_set, m)
 		df_ws = df_ws.append(Series(ws, name="M=%d" % m))
 
@@ -68,7 +72,8 @@ def make_picture():
 		subplot.scatter(train_set.x, train_set.y, marker='o', color='blue')
 
 		linex = np.linspace(0, 1, 101)
-		liney = np.cos(2 * np.pi * linex)
+		# liney = np.cos(2 * np.pi * linex)
+		liney = function(2 * np.pi * linex)
 		subplot.plot(linex, liney, color='green', linestyle='--')
 
 		linex = np.linspace(0, 1, 101)
