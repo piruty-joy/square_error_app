@@ -25,7 +25,7 @@ def error_graph():
 	image = square_error.make_picture()
 	chars = string.digits + string.ascii_letters
 	img_name = ''.join(random.choice(chars) for i in range(64)) + '.png'
-	
+
 	with TempImage.TempImage(img_name, image) as img:
 		img.create_png()
 		return send_file(img_name, mimetype='image/png')
@@ -46,7 +46,10 @@ def show():
 
 	with TempImage.TempImage(img_name, image) as img:
 		img.create_png()
+		# return render_template('index.html', img_path=img_name)
 		return send_file(img_name, mimetype='image/png')
+	# image.savefig('static/image/' + img_name)
+	# return render_template('index.html', img_path=img_name)
 
 
 @app.route('/postText', methods=['POST'])
@@ -63,7 +66,7 @@ def lower_conversion():
 
 @app.route('/')
 def index():
-	return '<img src="image.png">'
+	return render_template('index.html', img_path='bag.jpg')
 
 
 if __name__ == '__main__':

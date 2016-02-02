@@ -15,8 +15,14 @@ function init() {
         });
         return false;
     });
+
+    $('#num').slider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+        }
+    });
 }
 
-function changeValue(value) {
-    document.getElementById("val").innerHTML = value;
-}
+//function changeValue(value) {
+//    document.getElementById("val").innerHTML = value;
+//}

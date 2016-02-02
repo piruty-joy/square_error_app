@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="jp">
-<head>
-    <meta charset="UTF-8">
-    <title>Square Error App</title>
-</head>
-<body>
-<form action="/show" method="POST">
-    <input type="radio" name="function" value="sin" checked>sin
-    <input type="radio" name="function" value="cos">cos
-    <input type="range" name="num" min="10" max="100" step="1" value="20" onchange="changeValue(this.value)">
-    <span id="val">20</span>
-    <input type="submit" value="send">
-</form>
+{% extends "layout.html" %}
+{% block content%}
 
-<h1 id="hello">こんにちは</h1>
-<input type="text" id="input-text" placeholder="Please input text">
-<button id="button">Change text</button>
+<div class="container">
+    <form action="/show" method="POST">
+        <p><b>元になる関数 </b></p>
+        <div class="radio-inline">
+            <label>
+                <input type="radio" name="function" value="sin" checked>sin
+            </label>
+        </div>
+        <div class="radio-inline">
+            <label>
+                <input type="radio" name="function" value="cos">cos
+            </label>
+        </div>
 
-<hr />
-{% if num %}
-    <h1>{{ num }}</h1>
-{% else %}
-    <h1>Hello</h1>
-{% endif %}
-</body>
-<script type="text/javascript" src="{{url_for('static', filename='jquery.js')}}"></script>
-<script type="text/javascript" src="{{url_for('static', filename='app.js')}}"></script>
-</html>
+        <div class="form-group">
+            <label>訓練データ数</label>
+            <input type="text" id="num" name="num" data-slider-min="10" data-slider-max="100" data-slider-step="1" data-slider-value="20">
+            <!--<input type="text" name="num" min="10" max="100" step="1" value="20" onchange="changeValue(this.value)">-->
+            <!--<span id="val">20</span>-->
+        </div>
+        <button type="submit" class="btn btn-default">send</button>
+    </form>
+
+    <h1 id="hello">こんにちは</h1>
+    <input type="text" id="input-text" placeholder="Please input text">
+    <button id="button" class="btn btn-default">Change text</button>
+
+    <!--<hr />-->
+    <!--{% if img_path %}-->
+        <!--&lt;!&ndash;<img src="../static/image/{{img_path}}" alt="plot image">&ndash;&gt;-->
+        <!--<img src="{{img_path}}" alt="plot image">-->
+    <!--{% endif %}-->
+
+</div>
+
+{% endblock %}
